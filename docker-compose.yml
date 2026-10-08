@@ -1,0 +1,35 @@
+version: "3.9"
+
+services:
+  api:
+    image: python:3.11-slim
+    working_dir: /workspace/services/api
+    env_file: .env
+    volumes:
+      - .:/workspace
+    command: bash -lc "pip install -e . && uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload"
+    ports:
+      - "8000:8000"
+
+  agent:
+    image: python:3.11-slim
+    working_dir: /workspace/services/agent
+    env_file: .env
+    volumes:
+      - .:/workspace
+    command: bash -lc "pip install -e . && uvicorn app.main:app --host 0.0.0.0 --port 8100 --reload"
+    ports:
+      - "8100:8100"
+
+  web:
+    image: node:20
+    working_dir: /workspace/apps/web
+    env_file: .env
+    volumes:
+      - .:/workspace
+    command: bash -lc "npm install && npm run dev -- --hostname 0.0.0.0"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - api
+

@@ -1,0 +1,8 @@
+body { width: 320px; margin: 0; padding: 18px; font: 14px/1.6 system-ui, sans-serif; color: #20242b; background: #fff; }
+h1 { font-size: 18px; margin: 0 0 12px; }
+#diagnostics { font-size: 12px; color: #545963; overflow-wrap: anywhere; }
+label { display: block; }
+input:not([type=checkbox]) { box-sizing: border-box; width: 100%; border: 1px solid #ccd0d6; border-radius: 4px; padding: 8px; margin: 6px 0 12px; }
+.consent { font-size: 12px; color: #545963; margin-bottom: 14px; }
+button { background: #166534; color: white; border: 0; border-radius: 4px; padding: 9px 14px; cursor: pointer; }
+button:disabled { opacity: .5; } [hidden] { display: none !important; }

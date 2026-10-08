@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>连接项目</title><link rel="stylesheet" href="popup.css"></head>
+<body><h1>Chrome 连接</h1><p id="diagnostics"></p><p id="status">检查连接中</p>
+<form id="pair"><label for="code">项目配对码</label><input id="code" maxlength="80" autocomplete="off" required>
+<div id="approval" hidden><p id="provider"></p><p id="scope"></p><label class="consent"><input id="consent" type="checkbox">允许项目操作已配对的小红书公开标签页，将公开文本及摘要发送给以上模型服务；前台视觉模式还会发送裁剪截图。后台模式保存原文及每篇最多 100 条评论与回复、24 张笔记配图，图片匿名下载到本机，不默认发送给模型。每次最多 3 篇、12 轮模型调用、10 分钟，可能产生 API 费用。不会读取登录凭据、私信或操作发布。</label></div>
+<button type="submit">检查配对码</button></form><button id="disconnect" type="button" hidden>断开连接</button>
+<script src="popup.js"></script></body></html>

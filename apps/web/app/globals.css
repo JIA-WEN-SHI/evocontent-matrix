@@ -1,0 +1,93 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --background: 210 20% 98%;
+  --foreground: 220 20% 14%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 14%;
+  --primary: 188 80% 30%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 18% 92%;
+  --secondary-foreground: 220 20% 20%;
+  --muted: 210 16% 94%;
+  --muted-foreground: 215 15% 40%;
+  --accent: 180 30% 93%;
+  --accent-foreground: 188 65% 23%;
+  --destructive: 357 72% 43%;
+  --border: 210 16% 82%;
+  --input: 210 16% 82%;
+  --ring: 188 80% 30%;
+  --radius: 0.85rem;
+}
+
+.dark {
+  color-scheme: dark;
+  --background: 223 68% 7%;
+  --foreground: 195 76% 92%;
+  --card: 216 70% 10%;
+  --card-foreground: 194 82% 91%;
+  --primary: 186 90% 58%;
+  --primary-foreground: 219 72% 9%;
+  --secondary: 208 54% 18%;
+  --secondary-foreground: 190 80% 88%;
+  --muted: 215 45% 15%;
+  --muted-foreground: 194 35% 71%;
+  --accent: 190 72% 22%;
+  --accent-foreground: 190 85% 90%;
+  --destructive: 357 84% 63%;
+  --border: 193 57% 27%;
+  --input: 193 57% 27%;
+  --ring: 186 90% 58%;
+}
+
+body {
+  @apply min-h-screen bg-background text-foreground antialiased;
+  font-size: 15px;
+}
+
+.dark body {
+  background-image:
+    radial-gradient(circle at 16% 10%, rgba(78, 217, 255, 0.2), transparent 31%),
+    radial-gradient(circle at 84% 8%, rgba(64, 178, 255, 0.16), transparent 36%),
+    radial-gradient(circle at 50% 56%, rgba(53, 199, 212, 0.18), transparent 43%),
+    linear-gradient(to bottom, rgba(1, 11, 23, 0.98), rgba(2, 16, 29, 0.98));
+}
+
+* {
+  @apply border-border;
+}
+
+body::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, rgba(107, 200, 226, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(107, 200, 226, 0.05) 1px, transparent 1px);
+  background-size: 32px 32px;
+  mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.7), transparent 84%);
+}
+
+::selection {
+  background: rgba(75, 224, 255, 0.32);
+  color: #dcfbff;
+}
+
+.panel-glass {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+.dark .panel-glass {
+  background: linear-gradient(165deg, rgba(8, 30, 53, 0.8), rgba(4, 21, 39, 0.75));
+  border: 1px solid rgba(89, 195, 225, 0.28);
+  box-shadow:
+    inset 0 1px 0 rgba(127, 238, 255, 0.18),
+    0 18px 45px rgba(0, 0, 0, 0.42);
+}

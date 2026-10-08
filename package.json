@@ -1,0 +1,12 @@
+{
+  "name": "evocontent-matrix",
+  "private": true,
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "test:web": "node --test tests/web/*.test.cjs",
+    "dev:web": "npm run dev --workspace @evocontent/web",
+    "build:web": "npm run build --workspace @evocontent/web"
+  }
+}

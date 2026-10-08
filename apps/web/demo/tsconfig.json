@@ -1,0 +1,77 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "baseUrl": "..",
+    "typeRoots": [
+      "./node_modules/@types"
+    ],
+    "paths": {
+      "react": [
+        "./demo/node_modules/@types/react"
+      ],
+      "react-dom": [
+        "./demo/node_modules/react-dom"
+      ],
+      "lucide-react": [
+        "./demo/node_modules/lucide-react"
+      ],
+      "@radix-ui/react-dialog": [
+        "./demo/node_modules/@radix-ui/react-dialog"
+      ],
+      "@radix-ui/react-slot": [
+        "./demo/node_modules/@radix-ui/react-slot"
+      ],
+      "class-variance-authority": [
+        "./demo/node_modules/class-variance-authority"
+      ],
+      "clsx": [
+        "./demo/node_modules/clsx"
+      ],
+      "tailwind-merge": [
+        "./demo/node_modules/tailwind-merge"
+      ],
+      "recharts": [
+        "./demo/node_modules/recharts"
+      ],
+      "tailwindcss": [
+        "./demo/node_modules/tailwindcss"
+      ],
+      "autoprefixer": [
+        "./demo/node_modules/autoprefixer"
+      ],
+      "react/*": [
+        "./demo/node_modules/@types/react/*"
+      ],
+      "react-dom/*": [
+        "./demo/node_modules/@types/react-dom/*"
+      ],
+      "next/link": [
+        "./demo/next-link.tsx"
+      ],
+      "next/navigation": [
+        "./demo/next-navigation.tsx"
+      ],
+      "@/*": [
+        "./*"
+      ]
+    }
+  },
+  "include": [
+    "*.tsx",
+    "../app/page.tsx",
+    "../lib/demo/landingDemo.ts"
+  ]
+}

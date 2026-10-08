@@ -285,6 +285,8 @@ export default function LandingPage() {
   const [demoCollectTrace, setDemoCollectTrace] = useState<string[]>([]);
   const [demoSopTrace, setDemoSopTrace] = useState<string[]>([]);
   const [demoStage, setDemoStage] = useState<DemoStage>("idle");
+  const demoStageRef = useRef<DemoStage>("idle");
+  demoStageRef.current = demoStage;
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
   const [draftTitle, setDraftTitle] = useState<string>("");
   const [draftBody, setDraftBody] = useState<string>("");
@@ -342,7 +344,7 @@ export default function LandingPage() {
     setLoading(true);
     setError("");
     if (shouldUseDemoFallback()) {
-      loadDemoStage(demoStage);
+      loadDemoStage(demoStageRef.current);
       setLoading(false);
       return;
     }
@@ -390,7 +392,7 @@ export default function LandingPage() {
     } finally {
       setLoading(false);
     }
-  }, [demoStage, loadDemoStage, selectTaskForEditing]);
+  }, [loadDemoStage, selectTaskForEditing]);
 
   useEffect(() => {
     void refresh();
@@ -686,7 +688,15 @@ export default function LandingPage() {
   }
 
   async function generateDraft() {
-    if (demoMode || !accountId) return;
+    if (demoMode) {
+      const demo = buildLandingDemoFixture();
+      setPendingTasks(demo.pendingTasks);
+      selectTaskForEditing(demo.pendingTasks[0] || null);
+      setFocusPane("publish");
+      setNotice("已载入预置草稿，可编辑、保存并审核。内容仅为演示样例。");
+      return;
+    }
+    if (!accountId) return;
     const requestedAccountId = accountId;
     let generatedTaskId = "";
     await runLiveAction("generate", async () => {
@@ -813,7 +823,7 @@ export default function LandingPage() {
         : ensureBodyHasTags(String(task.payload_jsonb?.body || task.payload_jsonb?.full_body || ""), fallbackTags);
 
     setPendingTasks((prev) => prev.map((row) => row.id === task.id ? {
-      ...row, status: "approved", payload_jsonb: { ...row.payload_jsonb, title, body, full_body: body },
+      ...row, status: "approved", stage: "approved", payload_jsonb: { ...row.payload_jsonb, title, body, full_body: body },
     } : row));
     if (task.id === selectedTaskId) {
       setDraftTitle(title);
@@ -845,7 +855,7 @@ export default function LandingPage() {
     await sleep(800);
     log("步骤3/3：输出可执行优化建议");
     setDemoStage("sop_ready");
-    loadDemoStage("sop_ready");
+    setPendingStrategy(buildLandingDemoFixture().pendingStrategy);
     setMessages((prev) => [...prev, { role: "assistant", text: "SOP分析完成：右侧已生成可确认的优化建议。"}]);
     setSending(false);
   }
@@ -927,7 +937,7 @@ export default function LandingPage() {
               <button type="button" disabled={sending || loading || Boolean(actionBusy) || (!demoMode && !accountId)} onClick={() => void collect()} className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-emerald-300/45 bg-emerald-300/15 px-4 py-2 text-sm text-emerald-100 hover:bg-emerald-300/25 disabled:opacity-50">
                 <Play size={16}/>{actionBusy === "collect" ? "采集中..." : "开始采集"}
               </button>
-              <button type="button" disabled={demoMode || sending || loading || Boolean(actionBusy) || !accountId} onClick={() => void generateDraft()} className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-cyan-300/45 bg-cyan-300/15 px-4 py-2 text-sm text-cyan-100 hover:bg-cyan-300/25 disabled:opacity-50">
+              <button type="button" disabled={sending || loading || Boolean(actionBusy) || (!demoMode && !accountId)} onClick={() => void generateDraft()} className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-cyan-300/45 bg-cyan-300/15 px-4 py-2 text-sm text-cyan-100 hover:bg-cyan-300/25 disabled:opacity-50">
                 <FilePenLine size={16}/>{actionBusy === "generate" ? "生成中..." : "生成今日草稿"}
               </button>
               <button
@@ -958,13 +968,17 @@ export default function LandingPage() {
           ) : null}
           {notice ? <p role="status" className="mt-2 text-sm text-emerald-200">{notice}</p> : null}
           {actionBusy ? <p role="status" className="mt-2 text-sm">正在处理，请稍候...</p> : null}
-          {demoMode ? <p className="mt-2 text-sm text-amber-200">演示模式：所有操作仅模拟，不会发布真实内容。</p> : null}
+          {demoMode ? <p className="mt-2 text-sm text-amber-200">公开演示：数据、采集、草稿与分析均为示例。建议按“开始采集 → 生成今日草稿 → 编辑与审核 → SOP 分析”体验；不会发布真实内容。刷新可重置。</p> : null}
         </header>
 
         <nav aria-label="工作台导航" className="flex flex-wrap items-center gap-2 border-b border-cyan-300/20 pb-3">
-          <Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-cyan-100 hover:bg-cyan-300/10"><BarChart3 size={16}/>数据总览</Link>
+          {demoMode ? <>
+            <button type="button" onClick={() => wakeUp("public")} className="rounded-lg bg-cyan-300/10 px-3 py-2">数据与素材</button>
+            <button type="button" onClick={() => wakeUp("publish")} className="rounded-lg bg-cyan-300/10 px-3 py-2">草稿与审核</button>
+            <button type="button" onClick={() => wakeUp("sop")} className="rounded-lg bg-cyan-300/10 px-3 py-2">SOP 与优化</button>
+          </> : <><Link href="/dashboard" className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-cyan-100 hover:bg-cyan-300/10"><BarChart3 size={16}/>数据总览</Link>
           <Link href="/legacy-flow" className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-cyan-100 hover:bg-cyan-300/10"><Workflow size={16}/>流程执行</Link>
-          <Link href="/accounts" className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-cyan-100 hover:bg-cyan-300/10"><UserCog size={16}/>账号管理</Link>
+          <Link href="/accounts" className="inline-flex items-center gap-2 rounded-lg px-3 py-2 text-cyan-100 hover:bg-cyan-300/10"><UserCog size={16}/>账号管理</Link></>}
         </nav>
 
         <section
@@ -1539,7 +1553,7 @@ export default function LandingPage() {
         </section>
       </div>
 
-      <style jsx global>{`
+      <style>{`
         .landing-workspace, .landing-workspace * { letter-spacing: 0; }
         .landing-workspace h2 { font-size: 15px; }
         .landing-workspace input, .landing-workspace textarea, .landing-workspace select { max-width: 100%; min-width: 0; }

@@ -4,7 +4,7 @@
 
 连接采集、草稿、人工审核与内容反馈。
 
-**先查看：** [项目案例](https://jia-wen-shi.github.io/#case-evocontent) · [作品集首页](https://jia-wen-shi.github.io/)
+**先查看：** [直接演示](https://jia-wen-shi.github.io/demos/evocontent/) · [项目案例](https://jia-wen-shi.github.io/#case-evocontent) · [作品集首页](https://jia-wen-shi.github.io/)
 
 无需登录 GitHub 即可浏览公开源码。案例页和公共原型不需要安装环境或填写模型密钥。
 
@@ -18,13 +18,24 @@
 
 已有本地实现及近期安全验收记录。实际发布内容和完整反馈案例待补充，不宣称全自动运营成效。
 
-公共入口为流程与界面的案例展示，未公开运行依赖密钥、数据库或本机服务的完整后端。
+公开演示可直接操作现有前端：模拟采集、预置草稿与人工审核 · 示例反馈和 SOP 分析 · 不执行真实发布。演示使用合成数据，不代表真实业务或实时模型效果。完整后端仍需本地服务与自己的配置。
 
 ## 源码结构
 
 `apps/ · services/ · infra/ · tests/ · scripts/`
 
 这是当前工作区源码的发布快照，未附带旧 Git 历史。真实密钥、数据库、浏览器会话、日志、客户原始金融材料和依赖缓存不在仓库内。
+
+## 无后台演示
+
+```bash
+cd apps/web/demo
+npm ci
+npm run dev
+npm run build
+```
+
+静态产物在 `apps/web/demo/dist/`。复用内容工作台已有示例流程；公开入口禁用网络请求，不连接平台账号，刷新恢复示例。
 
 ## 本地运行
 

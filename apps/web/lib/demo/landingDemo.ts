@@ -106,7 +106,7 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
     id,
     account_id: scopedToAccount ? accountId : null,
     source_type: source,
-    source_url: xhsSearch(title),
+    source_url: null,
     captured_at: isoOffset(now, -(idx * 15 + 20)),
     raw_text: `${title}（演示数据）`,
     meta_jsonb: { title },
@@ -271,6 +271,13 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
       updated_at: isoOffset(now, -20),
     },
   ];
+
+  // Keep the draft structure demonstrable without presenting fictional policy or budget claims as advice.
+  pendingTasks.forEach((task) => {
+    const sample = `【示例草稿，仅用于界面演示】\n\n选题：${task.payload_jsonb.title}\n\n开头：说明读者关心的问题。\n正文：整理待核实的事实、来源和适用条件。\n结尾：给出后续核对方向。\n\n金额、政策、案例与业务效果均需另行核实；此样例不提供实际办理建议。`;
+    task.payload_jsonb.body = sample;
+    task.payload_jsonb.full_body = sample;
+  });
 
   const publishSummary: PublishFeedbackSummaryItem[] = [
     {

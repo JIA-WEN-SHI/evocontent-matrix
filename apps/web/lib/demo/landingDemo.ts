@@ -23,10 +23,6 @@ function isoOffset(base: Date, minutes: number): string {
   return new Date(base.getTime() + minutes * 60 * 1000).toISOString();
 }
 
-function xhsSearch(keyword: string): string {
-  return `https://www.xiaohongshu.com/search_result?keyword=${encodeURIComponent(keyword)}`;
-}
-
 export function buildLandingDemoFixture(): LandingDemoFixture {
   const now = new Date();
   const domainId = "demo-domain-id";
@@ -82,14 +78,14 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
   };
 
   const publicRefs = [
-    "日本高度人才签证讨论热度提升",
-    "经营管理签证资金证明审查趋严",
-    "赴日工作话题近7天互动上升",
-    "永住失败复盘帖收藏率走高",
-    "日本留学转工签路径热度升温",
-    "配偶签证转经营管理的咨询增加",
-    "签证材料清单类笔记完读率提升",
-    "移民预算拆解题材近一周点赞上扬",
+    "示例选题：日本高度人才签证常见问题",
+    "示例选题：经营管理签证材料准备",
+    "示例选题：赴日工作的读者疑问",
+    "示例选题：永住申请资料核对",
+    "示例选题：留学与工作路径比较",
+    "示例选题：不同身份路径的适用条件",
+    "示例选题：材料清单型内容",
+    "示例选题：预算问题的事实核验",
   ];
   const accountRefs = [
     "预算分层标题收藏更高",
@@ -118,7 +114,7 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
     domain: { id: domainId, slug: "japan_immigration", name: "日本移民内容增长实验室" },
     channel_stats: {
       xiaohongshu: {
-        total: 12,
+        total: 11,
         pending_review: 3,
         published: 6,
         done: 1,
@@ -155,29 +151,13 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
       content_type: "post",
       status: "pending_review",
       stage: "pending_review",
-      intent_jsonb: { topic: "预算25万能不能做经营管理签证" },
+      intent_jsonb: { topic: "经营管理签证：先整理哪些准备问题" },
       payload_jsonb: {
-        title: "预算25万能不能做经营管理签证",
-        body:
-          "先说结论：预算25万可以启动日本经营管理签证，但前提是你把钱花在“最关键的三处”，而不是平均摊开。\n\n" +
-          "我建议你先按这个顺序做：\n" +
-          "1. 资金证明：优先准备可解释的资金来源和流水逻辑，避免后续补件反复。\n" +
-          "2. 经营计划：不要只写“我要开公司”，要写清行业、客群、第一年现金流。\n" +
-          "3. 身份路径：从签证拿到之后，提前规划续签与永住时间轴。\n\n" +
-          "很多人不是预算不够，而是顺序错了。预算有限时，先做“通过率影响最大的动作”。\n\n" +
-          "如果你愿意，我可以按你的真实预算，给你一版可执行清单（按月拆解）。\n\n" +
-          "#日本移民 #经营管理签证 #日本永住",
-        full_body:
-          "先说结论：预算25万可以启动日本经营管理签证，但前提是你把钱花在“最关键的三处”，而不是平均摊开。\n\n" +
-          "我建议你先按这个顺序做：\n" +
-          "1. 资金证明：优先准备可解释的资金来源和流水逻辑，避免后续补件反复。\n" +
-          "2. 经营计划：不要只写“我要开公司”，要写清行业、客群、第一年现金流。\n" +
-          "3. 身份路径：从签证拿到之后，提前规划续签与永住时间轴。\n\n" +
-          "很多人不是预算不够，而是顺序错了。预算有限时，先做“通过率影响最大的动作”。\n\n" +
-          "如果你愿意，我可以按你的真实预算，给你一版可执行清单（按月拆解）。\n\n" +
-          "#日本移民 #经营管理签证 #日本永住",
+        title: "经营管理签证：先整理哪些准备问题",
+        body: "【示例草稿，仅用于流程演示】\n\n准备做一篇经营管理签证主题内容时，先把读者的问题整理出来：关心什么材料、如何判断信息是否适用、应该向谁核实。\n\n正文结构：读者问题 → 待核实事实 → 来源与适用条件 → 后续核对清单。发布前由人工检查每一条事实，补上有效来源；不根据预置草稿给出金额或办理结论。\n\n审核检查：标题是否准确？正文是否有依据？有没有夸大承诺？这份示例仅用于修改、保存和审核状态展示。",
+        full_body: "【示例草稿，仅用于流程演示】\n\n准备做一篇经营管理签证主题内容时，先把读者的问题整理出来：关心什么材料、如何判断信息是否适用、应该向谁核实。\n\n正文结构：读者问题 → 待核实事实 → 来源与适用条件 → 后续核对清单。发布前由人工检查每一条事实，补上有效来源；不根据预置草稿给出金额或办理结论。\n\n审核检查：标题是否准确？正文是否有依据？有没有夸大承诺？这份示例仅用于修改、保存和审核状态展示。",
         tags: ["#日本移民", "#经营管理签证", "#日本永住"],
-        topic: "预算25万能不能做经营管理签证",
+        topic: "经营管理签证：先整理哪些准备问题",
       },
       review_jsonb: {},
       publish_jsonb: {},
@@ -196,29 +176,13 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
       content_type: "post",
       status: "pending_review",
       stage: "pending_review",
-      intent_jsonb: { topic: "日本工签转永住怎么准备" },
+      intent_jsonb: { topic: "日本工签与永住：读者问题清单" },
       payload_jsonb: {
-        title: "日本工签转永住怎么准备",
-        body:
-          "结论先说：工签转永住最怕的不是材料少，而是“时间轴混乱”。\n\n" +
-          "你可以按这三条线并行准备：\n" +
-          "1. 在留记录线：确保签证状态连续、无异常中断。\n" +
-          "2. 纳税记录线：把纳税、社保记录按年份对齐，避免出现断档。\n" +
-          "3. 工作连续性线：岗位、收入、合同信息前后可解释。\n\n" +
-          "建议从“倒推法”开始：先看计划申请时间，再倒推12个月准备动作。\n\n" +
-          "评论区告诉我你现在卡在哪一步，我按你的时间给你排一个周计划。\n\n" +
-          "#日本移民 #日本工签 #日本永住",
-        full_body:
-          "结论先说：工签转永住最怕的不是材料少，而是“时间轴混乱”。\n\n" +
-          "你可以按这三条线并行准备：\n" +
-          "1. 在留记录线：确保签证状态连续、无异常中断。\n" +
-          "2. 纳税记录线：把纳税、社保记录按年份对齐，避免出现断档。\n" +
-          "3. 工作连续性线：岗位、收入、合同信息前后可解释。\n\n" +
-          "建议从“倒推法”开始：先看计划申请时间，再倒推12个月准备动作。\n\n" +
-          "评论区告诉我你现在卡在哪一步，我按你的时间给你排一个周计划。\n\n" +
-          "#日本移民 #日本工签 #日本永住",
+        title: "日本工签与永住：读者问题清单",
+        body: "【示例草稿，仅用于流程演示】\n\n选题：工签与永住相关内容，怎样回应读者的常见疑问？\n\n先列出三个待核对问题：不同身份的适用条件、需要查阅的原始资料、信息更新时间。文章中区分已核实事实与尚待确认内容；缺少来源的段落先不发布。\n\n审核检查：条件是否写全？来源是否对应？是否把个例当成通用规则？此示例不提供实际办理建议。",
+        full_body: "【示例草稿，仅用于流程演示】\n\n选题：工签与永住相关内容，怎样回应读者的常见疑问？\n\n先列出三个待核对问题：不同身份的适用条件、需要查阅的原始资料、信息更新时间。文章中区分已核实事实与尚待确认内容；缺少来源的段落先不发布。\n\n审核检查：条件是否写全？来源是否对应？是否把个例当成通用规则？此示例不提供实际办理建议。",
         tags: ["#日本移民", "#日本工签", "#日本永住"],
-        topic: "日本工签转永住怎么准备",
+        topic: "日本工签与永住：读者问题清单",
       },
       review_jsonb: {},
       publish_jsonb: {},
@@ -237,29 +201,13 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
       content_type: "post",
       status: "pending_review",
       stage: "pending_review",
-      intent_jsonb: { topic: "日本移民别只看政策，先看家庭目标" },
+      intent_jsonb: { topic: "赴日规划：先明确家庭目标" },
       payload_jsonb: {
-        title: "日本移民别只看政策，先看家庭目标",
-        body:
-          "同样是移民，A家庭看教育，B家庭看职业安全，路径设计会完全不同。先选“目标”，再选“签证”。\n\n" +
-          "我给你一个最实用的判断框架：\n" +
-          "1. 先定家庭目标：教育优先 / 职业优先 / 资产安全优先。\n" +
-          "2. 再定预算边界：一次性投入上限和每月承压线。\n" +
-          "3. 最后选路径：经营管理、工签、留学转签都可以，但逻辑必须和目标一致。\n\n" +
-          "如果你上来就问“我办哪种签证”，大概率会走弯路。\n\n" +
-          "你可以直接留言“家庭目标+预算”，我给你一个匹配路径建议。\n\n" +
-          "#日本移民 #经营管理签证 #日本永住",
-        full_body:
-          "同样是移民，A家庭看教育，B家庭看职业安全，路径设计会完全不同。先选“目标”，再选“签证”。\n\n" +
-          "我给你一个最实用的判断框架：\n" +
-          "1. 先定家庭目标：教育优先 / 职业优先 / 资产安全优先。\n" +
-          "2. 再定预算边界：一次性投入上限和每月承压线。\n" +
-          "3. 最后选路径：经营管理、工签、留学转签都可以，但逻辑必须和目标一致。\n\n" +
-          "如果你上来就问“我办哪种签证”，大概率会走弯路。\n\n" +
-          "你可以直接留言“家庭目标+预算”，我给你一个匹配路径建议。\n\n" +
-          "#日本移民 #经营管理签证 #日本永住",
+        title: "赴日规划：先明确家庭目标",
+        body: "【示例草稿，仅用于流程演示】\n\n选题：规划赴日内容时，先明确家庭读者关心的目标。\n\n可按教育、工作与生活安排组织问题，再整理需要核实的信息。正文展示问题框架和查证方向，不替读者作决定，也不承诺实际结果。\n\n审核检查：目标人群是否明确？信息和建议是否区分？行动提示能否帮助读者进一步查证？",
+        full_body: "【示例草稿，仅用于流程演示】\n\n选题：规划赴日内容时，先明确家庭读者关心的目标。\n\n可按教育、工作与生活安排组织问题，再整理需要核实的信息。正文展示问题框架和查证方向，不替读者作决定，也不承诺实际结果。\n\n审核检查：目标人群是否明确？信息和建议是否区分？行动提示能否帮助读者进一步查证？",
         tags: ["#日本移民", "#经营管理签证", "#日本永住"],
-        topic: "日本移民别只看政策，先看家庭目标",
+        topic: "赴日规划：先明确家庭目标",
       },
       review_jsonb: {},
       publish_jsonb: {},
@@ -272,19 +220,12 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
     },
   ];
 
-  // Keep the draft structure demonstrable without presenting fictional policy or budget claims as advice.
-  pendingTasks.forEach((task) => {
-    const sample = `【示例草稿，仅用于界面演示】\n\n选题：${task.payload_jsonb.title}\n\n开头：说明读者关心的问题。\n正文：整理待核实的事实、来源和适用条件。\n结尾：给出后续核对方向。\n\n金额、政策、案例与业务效果均需另行核实；此样例不提供实际办理建议。`;
-    task.payload_jsonb.body = sample;
-    task.payload_jsonb.full_body = sample;
-  });
-
   const publishSummary: PublishFeedbackSummaryItem[] = [
     {
       task_id: "demo-published-1",
       account_id: accountId,
       account_name: accountName,
-      title: "后悔没早点知道：日本经营管理签证预算拆解",
+      title: "示例已发布内容：材料准备问题清单",
       status: "published",
       stage: "published",
       feedback_state: "collecting",
@@ -294,7 +235,7 @@ export function buildLandingDemoFixture(): LandingDemoFixture {
       ces_score: 0.76,
       primary_bottleneck: "hook_strength",
       ee_mode: "stable",
-      published_url: xhsSearch("日本经营管理签证预算"),
+      published_url: "",
       feed_id: "demo_feed_1",
       published_at: isoOffset(now, -1440),
       updated_at: isoOffset(now, -15),

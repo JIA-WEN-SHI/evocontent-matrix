@@ -6,6 +6,8 @@
 
 **先查看：** [直接演示](https://jia-wen-shi.github.io/demos/evocontent/) · [项目案例](https://jia-wen-shi.github.io/#case-evocontent) · [作品集首页](https://jia-wen-shi.github.io/)
 
+[观看 76 秒方案演示视频](https://jia-wen-shi.github.io/#case-evocontent/video)
+
 无需登录 GitHub 即可浏览公开源码。案例页和公共原型不需要安装环境或填写模型密钥。
 
 ## 项目背景与职责
@@ -36,6 +38,8 @@ npm run build
 ```
 
 静态产物在 `apps/web/demo/dist/`。复用内容工作台已有示例流程；公开入口禁用网络请求，不连接平台账号，刷新恢复示例。
+
+公开版打开时载入 8 条公共示例资料、8 条账号示例和 3 份待审核草稿。建议依次查看资料、编辑并审核草稿、查看 SOP 分析与人工确认建议；也可以重新模拟采集。互动指标与策略分析为预设，不能用来证明真实运营收益。演示视频记录的是本地方案版本，界面与最新公开版可能略有不同。
 
 ## 本地运行
 

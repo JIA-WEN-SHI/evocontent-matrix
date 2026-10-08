@@ -284,8 +284,9 @@ export default function LandingPage() {
   const [publishDecisionSavedAt, setPublishDecisionSavedAt] = useState<number | null>(null);
   const [demoCollectTrace, setDemoCollectTrace] = useState<string[]>([]);
   const [demoSopTrace, setDemoSopTrace] = useState<string[]>([]);
-  const [demoStage, setDemoStage] = useState<DemoStage>("idle");
-  const demoStageRef = useRef<DemoStage>("idle");
+  const initialDemoStage: DemoStage = process.env.NEXT_PUBLIC_LANDING_DEMO_FALLBACK === "true" ? "collected" : "idle";
+  const [demoStage, setDemoStage] = useState<DemoStage>(initialDemoStage);
+  const demoStageRef = useRef<DemoStage>(initialDemoStage);
   demoStageRef.current = demoStage;
   const [selectedTaskId, setSelectedTaskId] = useState<string>("");
   const [draftTitle, setDraftTitle] = useState<string>("");
@@ -935,7 +936,7 @@ export default function LandingPage() {
             </div>
             <div className="flex flex-wrap items-center gap-3">
               <button type="button" disabled={sending || loading || Boolean(actionBusy) || (!demoMode && !accountId)} onClick={() => void collect()} className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-emerald-300/45 bg-emerald-300/15 px-4 py-2 text-sm text-emerald-100 hover:bg-emerald-300/25 disabled:opacity-50">
-                <Play size={16}/>{actionBusy === "collect" ? "采集中..." : "开始采集"}
+                <Play size={16}/>{actionBusy === "collect" ? "采集中..." : demoMode ? "模拟采集" : "开始采集"}
               </button>
               <button type="button" disabled={sending || loading || Boolean(actionBusy) || (!demoMode && !accountId)} onClick={() => void generateDraft()} className="inline-flex min-h-10 items-center gap-2 rounded-lg border border-cyan-300/45 bg-cyan-300/15 px-4 py-2 text-sm text-cyan-100 hover:bg-cyan-300/25 disabled:opacity-50">
                 <FilePenLine size={16}/>{actionBusy === "generate" ? "生成中..." : "生成今日草稿"}
@@ -968,7 +969,7 @@ export default function LandingPage() {
           ) : null}
           {notice ? <p role="status" className="mt-2 text-sm text-emerald-200">{notice}</p> : null}
           {actionBusy ? <p role="status" className="mt-2 text-sm">正在处理，请稍候...</p> : null}
-          {demoMode ? <p className="mt-2 text-sm text-amber-200">公开演示：数据、采集、草稿与分析均为示例。建议按“开始采集 → 生成今日草稿 → 编辑与审核 → SOP 分析”体验；不会发布真实内容。刷新可重置。</p> : null}
+          {demoMode ? <p className="mt-2 text-sm text-amber-200">已载入示例资料与草稿。建议按“查看资料 → 草稿与审核 → SOP 与优化”体验，也可重新模拟采集。互动数据与分析均为预设，不采集或发布真实内容；刷新可恢复示例。</p> : null}
         </header>
 
         <nav aria-label="工作台导航" className="flex flex-wrap items-center gap-2 border-b border-cyan-300/20 pb-3">
